@@ -41,38 +41,15 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initAgeGate() {
-    const storageKey = 'ageGateAccepted';
     const ageGate = document.getElementById('ageGate');
     const confirmBtn = document.getElementById('ageGateConfirm');
     const declineBtn = document.getElementById('ageGateDecline');
 
     if (!ageGate || !confirmBtn || !declineBtn) return;
 
-    const hasAccepted = (() => {
-        try {
-            return localStorage.getItem(storageKey) === 'true';
-        } catch (error) {
-            console.warn('Age gate storage unavailable.', error);
-            return false;
-        }
-    })();
-
-    if (hasAccepted) {
-        document.documentElement.classList.add('age-gate-approved');
-        document.body.classList.remove('age-gate-locked');
-        ageGate.classList.add('is-hidden');
-        return;
-    }
-
     document.body.classList.add('age-gate-locked');
 
     confirmBtn.addEventListener('click', () => {
-        try {
-            localStorage.setItem(storageKey, 'true');
-        } catch (error) {
-            console.warn('Unable to persist age gate acceptance.', error);
-        }
-
         document.documentElement.classList.add('age-gate-approved');
         document.body.classList.remove('age-gate-locked');
         ageGate.classList.add('is-hidden');
