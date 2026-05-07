@@ -55,6 +55,7 @@ body {
     overflow-x: hidden;
 }
 
+html.age-gate-locked body,
 body.age-gate-locked {
     overflow: hidden;
 }
@@ -74,6 +75,7 @@ body.age-gate-locked {
     -webkit-backdrop-filter: blur(18px);
 }
 
+html.age-gate-approved .age-gate,
 .age-gate-approved .age-gate,
 .age-gate.is-hidden {
     display: none;

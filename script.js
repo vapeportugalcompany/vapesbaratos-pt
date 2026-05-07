@@ -1,4 +1,4 @@
-const initAdalyaTouch = () => {
+﻿const initAdalyaTouch = () => {
     const cards = document.querySelectorAll('.adalya-card');
     const container = document.querySelector('.adalya-container');
 
@@ -44,15 +44,36 @@ function initAgeGate() {
     const ageGate = document.getElementById('ageGate');
     const confirmBtn = document.getElementById('ageGateConfirm');
     const declineBtn = document.getElementById('ageGateDecline');
+    const storageKey = 'vapesbaratos_age_verified';
 
     if (!ageGate || !confirmBtn || !declineBtn) return;
 
-    document.body.classList.add('age-gate-locked');
+    const setApprovedState = (approved) => {
+        document.documentElement.classList.toggle('age-gate-approved', approved);
+        document.documentElement.classList.toggle('age-gate-locked', !approved);
+        document.body.classList.toggle('age-gate-locked', !approved);
+        ageGate.classList.toggle('is-hidden', approved);
+        ageGate.setAttribute('aria-hidden', approved ? 'true' : 'false');
+    };
+
+    let isApproved = false;
+
+    try {
+        isApproved = window.localStorage.getItem(storageKey) === 'true';
+    } catch (error) {
+        // Ignore storage access failures and fall back to the locked state.
+    }
+
+    setApprovedState(isApproved);
 
     confirmBtn.addEventListener('click', () => {
-        document.documentElement.classList.add('age-gate-approved');
-        document.body.classList.remove('age-gate-locked');
-        ageGate.classList.add('is-hidden');
+        try {
+            window.localStorage.setItem(storageKey, 'true');
+        } catch (error) {
+            // Ignore storage access failures and still unlock the page.
+        }
+
+        setApprovedState(true);
     });
 
     declineBtn.addEventListener('click', () => {
@@ -184,11 +205,11 @@ function initNewsletter() {
             return;
         }
         input.value = '';
-        input.placeholder = 'DziД™kujemy! вњ“';
-        btn.textContent = 'вњ“';
+        input.placeholder = 'DziР”в„ўkujemy! РІСљвЂњ';
+        btn.textContent = 'РІСљвЂњ';
         setTimeout(() => {
-            input.placeholder = 'TwГіj email';
-            btn.textContent = 'в†’';
+            input.placeholder = 'TwР“С–j email';
+            btn.textContent = 'РІвЂ вЂ™';
         }, 3000);
     });
 }
@@ -472,4 +493,7 @@ if (document.readyState === 'loading') {
 } else {
     initShowMore();
 }
+
+
+
 

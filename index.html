@@ -9,6 +9,21 @@
     <title>VapesBaratos.pt | Vapes Descartáveis e Cigarros Eletrónicos</title>
     <meta name="keywords"
         content="tragadas, vapes descartáveis, vape descartável, vape com nicotina, cigarros eletrónicos, muitas tragadas, sabores vape, puff, cigarros eletrónicos descartáveis">
+    <script>
+        (function () {
+            try {
+                var isApproved = window.localStorage.getItem('vapesbaratos_age_verified') === 'true';
+
+                if (isApproved) {
+                    document.documentElement.classList.add('age-gate-approved');
+                } else {
+                    document.documentElement.classList.add('age-gate-locked');
+                }
+            } catch (error) {
+                document.documentElement.classList.add('age-gate-locked');
+            }
+        }());
+    </script>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
